@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
-import { Refrigerator, WashingMachineIcon, TvIcon } from 'lucide-react';
+import { Refrigerator, WashingMachine, TvIcon } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -39,7 +39,7 @@ export default function HomePage() {
               <p>Large choix de frigos et congélateurs.</p>
             </Card>
             <Card className="p-8">
-              <WashingMachineIcon className="h-12 w-12 mx-auto mb-4 text-brand-blue" />
+              <WashingMachine className="h-12 w-12 mx-auto mb-4 text-brand-blue" />
               <h3 className="text-xl font-semibold mb-2">Lave-linge</h3>
               <p>Machines à laver performantes.</p>
             </Card>
