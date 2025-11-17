@@ -1,0 +1,143 @@
+│     4 const products = [                                                                                                                                            │
+│     5   { id: 1, category: 'Réfrigérateurs', name: 'Réfrigérateur LG 450L', price: '699€', originalPrice: '775€', discount: '-10%', imageUrl:                       │
+│       'https://images.unsplash.com/photo-1617933622489-5e2a2d6e5a40?q=80&w=1974&auto=format&fit=crop' },                                                            │
+│     6   { id: 2, category: 'Réfrigérateurs', name: 'Réfrigérateur Samsung 380L', price: '540€', originalPrice: '600€', discount: '-10%', imageUrl:                  │
+│       'https://images.unsplash.com/photo-1617933622489-5e2a2d6e5a40?q=80&w=1974&auto=format&fit=crop' },                                                            │
+│     7   { id: 3, category: 'Lave-linge', name: 'Lave-linge Bosch 8kg', price: '445€', imageUrl:                                                                     │
+│       'https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?q=80&w=2070&auto=format&fit=crop' },                                                            │
+│     8   { id: 4, category: 'TV', name: 'TV Samsung 55" 4K', price: '799€', imageUrl:                                                                                │
+│       'https://images.unsplash.com/photo-1593784944526-659f83562b66?q=80&w=2070&auto=format&fit=crop' },                                                            │
+│     9   { id: 5, category: 'TV', name: 'TV LG 65" OLED', price: '1299€', imageUrl:                                                                                  │
+│       'https://images.unsplash.com/photo-1593784944526-6593784944526-659f83562b66?q=80&w=2070&auto=format&fit=crop' },                                              │
+│    10   { id: 6, category: 'Lave-linge', name: 'Lave-linge Whirlpool 10kg', price: '599€', imageUrl:                                                                │
+│       'https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?q=80&w=2070&auto=format&fit=crop' },                                                            │
+│    11 ];                                                                                                                                                            │
+│    12                                                                                                                                                               │
+│    13 export default function ProductsPage() {                                                                                                                      │
+│    14   return (                                                                                                                                                    │
+│    15     <div className="container mx-auto py-12 px-4">                                                                                                            │
+│    16       <h1 className="text-4xl font-bold text-center mb-4">Nos Produits</h1>                                                                                   │
+│    17       <p className="text-center text-gray-600 mb-8">Découvrez notre sélection d'électroménager de cuisine</p>                                                 │
+│    18                                                                                                                                                               │
+│    19       <div className="flex justify-center space-x-2 mb-12">                                                                                                   │
+│    20         <button className="bg-brand-blue text-white py-2 px-4 rounded-full">Tous</button>                                                                     │
+│    21         <button className="bg-gray-200 text-gray-700 py-2 px-4 rounded-full hover:bg-gray-300">Réfrigérateurs</button>                                        │
+│    22         <button className="bg-gray-200 text-gray-700 py-2 px-4 rounded-full hover:bg-gray-300">Lave-linge</button>                                            │
+│    23         <button className="bg-gray-200 text-gray-700 py-2 px-4 rounded-full hover:bg-gray-300">TV</button>                                                    │
+│    24       </div>                                                                                                                                                  │
+│    25                                                                                                                                                               │
+│    26       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">                                                                                  │
+│    27         {products.map(product => (                                                                                                                            │
+│    28           <ProductCard key={product.id} {...product} />                                                                                                       │
+│    29         ))}                                                                                                                                                   │
+│    30       </div>                                                                                                                                                  │
+│    31     </div>                                                                                                                                                    │
+│    32   );                                                                                                                                                          │
+│    33 }                                                                                                                                                             │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+✦ Okay, writing app/(site)/a-propos/page.tsx now.
+╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ ✓  WriteFile Writing to app/(site)/a-propos/page.tsx                                                                                                                │
+│                                                                                                                                                                     │
+│     1 import Image from 'next/image';                                                                                                                               │
+│     2 import { Card } from '@/components/ui/Card';                                                                                                                  │
+│     3 import { Award, DollarSign, Users, Heart } from 'lucide-react';                                                                                               │
+│     4                                                                                                                                                               │
+│     5 export default function AboutPage() {                                                                                                                         │
+│     6   return (                                                                                                                                                    │
+│     7     <div>                                                                                                                                                     │
+│     8       {/* Hero Section */}                                                                                                                                    │
+│     9       <section className="bg-brand-blue py-16 text-white text-center">                                                                                        │
+│    10         <h1 className="text-4xl font-bold">À propos d'ElectroMaison</h1>                                                                                      │
+│    11         <p className="mt-4 text-lg">Votre partenaire de confiance pour tous vos besoins en électroménager depuis plus de 15 ans.</p>                          │
+│    12       </section>                                                                                                                                              │
+│    13                                                                                                                                                               │
+│    14       {/* History Section */}                                                                                                                                 │
+│    15       <section className="container mx-auto py-16 px-4 grid md:grid-cols-2 gap-12 items-center">                                                              │
+│    16         <div>                                                                                                                                                 │
+│    17           <h2 className="text-3xl font-bold mb-4">Notre Histoire</h2>                                                                                         │
+│    18           <p className="text-gray-600 leading-relaxed">                                                                                                       │
+│    19             Fondée en 2010, ElectroMaison est née de la passion de ses créateurs pour l'innovation et le service client. Nous avons commencé comme une petite │
+│       boutique de quartier et sommes devenus aujourd'hui une référence dans le domaine de l'électroménager.                                                         │
+│    20             <br /><br />                                                                                                                                      │
+│    21             Notre mission est simple : offrir à nos clients des produits de qualité aux meilleurs prix, tout en garantissant un service personnalisé et des   │
+│       conseils d'experts. Aujourd'hui, nous sommes fiers de compter plus de 10 000 clients satisfaits et de continuer à grandir grâce à votre confiance.            │
+│    22           </p>                                                                                                                                                │
+│    23         </div>                                                                                                                                                │
+│    24         <div>                                                                                                                                                 │
+│    25           <Image                                                                                                                                              │
+│    26             src="https://images.unsplash.com/photo-1581093450021-4a7360e9a1f8?q=80&w=2070&auto=format&fit=crop"                                               │
+│    27             alt="Intérieur du magasin"                                                                                                                        │
+│    28             width={500}                                                                                                                                       │
+│    29             height={400}                                                                                                                                      │
+│    30             className="rounded-lg shadow-xl"                                                                                                                  │
+│    31           />                                                                                                                                                  │
+│    32         </div>                                                                                                                                                │
+│    33       </section>                                                                                                                                              │
+│    34                                                                                                                                                               │
+│    35       {/* Values Section */}                                                                                                                                  │
+│    36       <section className="bg-brand-gray py-16">                                                                                                               │
+│    37         <div className="container mx-auto text-center px-4">                                                                                                  │
+│    38           <h2 className="text-3xl font-bold mb-8">Nos Valeurs</h2>                                                                                            │
+│    39           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">                                                                              │
+│    40             <Card className="p-6">                                                                                                                            │
+│    41               <Award className="h-10 w-10 mx-auto mb-4 text-brand-blue" />                                                                                    │
+│    42               <h3 className="text-xl font-semibold">Qualité</h3>                                                                                              │
+│    43             </Card>                                                                                                                                           │
+│    44             <Card className="p-6">                                                                                                                            │
+│    45               <DollarSign className="h-10 w-10 mx-auto mb-4 text-brand-blue" />                                                                               │
+│    46               <h3 className="text-xl font-semibold">Prix compétitifs</h3>                                                                                     │
+│    47             </Card>                                                                                                                                           │
+│    48             <Card className="p-6">                                                                                                                            │
+│    49               <Users className="h-10 w-10 mx-auto mb-4 text-brand-blue" />                                                                                    │
+│    50               <h3 className="text-xl font-semibold">Service client</h3>                                                                                       │
+│    51             </Card>                                                                                                                                           │
+│    52             <Card className="p-6">                                                                                                                            │
+│    53               <Heart className="h-10 w-10 mx-auto mb-4 text-brand-blue" />                                                                                    │
+│    54               <h3 className="text-xl font-semibold">Satisfaction</h3>                                                                                         │
+│    55             </Card>                                                                                                                                           │
+│    56           </div>                                                                                                                                              │
+│    57         </div>                                                                                                                                                │
+│    58       </section>                                                                                                                                              │
+│    59     </div>                                                                                                                                                    │
+│    60   );                                                                                                                                                          │
+│    61 }                                                                                                                                                             │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+⠸ Beginning the Page Build (esc to cancel, 13m 38s)
+
+ Using: 1 open file (ctrl+g to view) | 1 GEMINI.md file                                                                         accepting edits (shift + tab to toggle)
+╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ >   Type your message or @path/to/file                                                                                                                              │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+ ~/Documents/Projects/Elect                             no sandbox (see /docs)                              auto (98% context left) | ✖ 6 errors (ctrl+o for details)
+
+ *  History restored 
+
+mersel@mersel:~/Documents/Projects/Elect$ gemini
+Loaded cached credentials.
+
+ ███            █████████  ██████████ ██████   ██████ █████ ██████   █████ █████
+░░░███         ███░░░░░███░░███░░░░░█░░██████ ██████ ░░███ ░░██████ ░░███ ░░███
+  ░░░███      ███     ░░░  ░███  █ ░  ░███░█████░███  ░███  ░███░███ ░███  ░███
+    ░░░███   ░███          ░██████    ░███░░███ ░███  ░███  ░███░░███░███  ░███
+     ███░    ░███    █████ ░███░░█    ░███ ░░░  ░███  ░███  ░███ ░░██████  ░███
+   ███░      ░░███  ░░███  ░███ ░   █ ░███      ░███  ░███  ░███  ░░█████  ░███
+ ███░         ░░█████████  ██████████ █████     █████ █████ █████  ░░█████ █████
+░░░            ░░░░░░░░░  ░░░░░░░░░░ ░░░░░     ░░░░░ ░░░░░ ░░░░░    ░░░░░ ░░░░░
+
+Tips for getting started:
+1. Ask questions, edit files, or run commands.
+2. Be specific for the best results.
+3. /help for more information.
+
+╭───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.11.2 → 0.15.3                                                                                                                              │
+│ Installed with npm. Attempting to automatically update now...                                                                                                             │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+
+ Using: 1 open file (ctrl+g to view) | 1 GEMINI.md file
+╭───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ >   Type your message or @path/to/file                                                                                                                                    │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+ ~/Documents/Projects/Elect                                                 no sandbox (see /docs)                                                  auto (100% context left)
