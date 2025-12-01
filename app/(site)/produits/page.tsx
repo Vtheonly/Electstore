@@ -1,33 +1,96 @@
-import { ProductCard } from '@/components/shared/ProductCard';
+'use client';
 
-// Placeholder data - replace with data from Supabase
-const products = [
-  { id: 1, category: 'Réfrigérateurs', name: 'Réfrigérateur LG 450L', price: '699€', originalPrice: '775€', discount: '-10%', imageUrl: 'https://images.unsplash.com/photo-1617933622489-5e2a2d6e5a40?q=80&w=1974&auto=format&fit=crop' },
-  { id: 2, category: 'Réfrigérateurs', name: 'Réfrigérateur Samsung 380L', price: '540€', originalPrice: '600€', discount: '-10%', imageUrl: 'https://images.unsplash.com/photo-1617933622489-5e2a2d6e5a40?q=80&w=1974&auto=format&fit=crop' },
-  { id: 3, category: 'Lave-linge', name: 'Lave-linge Bosch 8kg', price: '445€', imageUrl: 'https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?q=80&w=2070&auto=format&fit=crop' },
-  { id: 4, category: 'TV', name: 'TV Samsung 55" 4K', price: '799€', imageUrl: 'https://images.unsplash.com/photo-1593784944526-659f83562b66?q=80&w=2070&auto=format&fit=crop' },
-  { id: 5, category: 'TV', name: 'TV LG 65" OLED', price: '1299€', imageUrl: 'https://images.unsplash.com/photo-1593784944526-659f83562b66?q=80&w=2070&auto=format&fit=crop' },
-  { id: 6, category: 'Lave-linge', name: 'Lave-linge Whirlpool 10kg', price: '599€', imageUrl: 'https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?q=80&w=2070&auto=format&fit=crop' },
-];
+import { useEffect, useState } from 'react';
+import { ProductCard } from '@/components/shared/ProductCard';
+import { Product } from '@/types';
+import { getProducts } from '@/lib/supabase/queries-client';
+import { CATEGORIES } from '@/lib/constants';
+import { TagFilter } from '@/components/shared/TagFilter/TagFilter';
 
 export default function ProductsPage() {
-  return (
-    <div className="container mx-auto py-12 px-4">
-      <h1 className="text-4xl font-bold text-center mb-4">Nos Produits</h1>
-      <p className="text-center text-gray-600 mb-8">Découvrez notre sélection d'électroménager de cuisine</p>
-      
-      <div className="flex justify-center space-x-2 mb-12">
-        <button className="bg-brand-blue text-white py-2 px-4 rounded-full">Tous</button>
-        <button className="bg-gray-200 text-gray-700 py-2 px-4 rounded-full hover:bg-gray-300">Réfrigérateurs</button>
-        <button className="bg-gray-200 text-gray-700 py-2 px-4 rounded-full hover:bg-gray-300">Lave-linge</button>
-        <button className="bg-gray-200 text-gray-700 py-2 px-4 rounded-full hover:bg-gray-300">TV</button>
-      </div>
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string>('Tous');
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {products.map(product => (
-          <ProductCard key={product.id} {...product} />
+  useEffect(() => {
+    async function loadProducts() {
+      setLoading(true);
+      try {
+        const options: any = {};
+        if (selectedCategory !== 'Tous') {
+          options.category = selectedCategory;
+        }
+        if (selectedTag) {
+          options.tag = selectedTag;
+        }
+        
+        const data = await getProducts(options);
+        setProducts(data);
+      } catch (error) {
+        console.error('Failed to load products', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadProducts();
+  }, [selectedCategory, selectedTag]);
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8 text-center">Nos Produits</h1>
+
+      {/* Category Filter */}
+      <div className="flex flex-wrap gap-4 mb-8 justify-center">
+        <button
+          onClick={() => setSelectedCategory('Tous')}
+          className={`px-4 py-2 rounded-full transition-colors ${
+            selectedCategory === 'Tous'
+              ? 'bg-brand-blue text-white'
+              : 'bg-gray-100 hover:bg-gray-200'
+          }`}
+        >
+          Tous
+        </button>
+        {CATEGORIES.map((category) => (
+          <button
+            key={category}
+            onClick={() => setSelectedCategory(category)}
+            className={`px-4 py-2 rounded-full transition-colors ${
+              selectedCategory === category
+                ? 'bg-brand-blue text-white'
+                : 'bg-gray-100 hover:bg-gray-200'
+            }`}
+          >
+            {category}
+          </button>
         ))}
       </div>
+
+      {/* Tag Filter */}
+      <TagFilter selectedTag={selectedTag} onSelectTag={setSelectedTag} />
+
+      {/* Products Grid */}
+      {loading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="bg-gray-100 h-96 rounded-lg animate-pulse" />
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
+
+      {!loading && products.length === 0 && (
+        <div className="text-center py-12 text-gray-500">
+          Aucun produit trouvé dans cette catégorie.
+        </div>
+      )}
     </div>
   );
 }

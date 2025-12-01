@@ -1,10 +1,26 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Refrigerator, WashingMachine, TvIcon } from 'lucide-react';
+import { Product } from '@/types';
+import { getProducts } from '@/lib/supabase/queries-client';
+import { ProductCard } from '@/components/shared/ProductCard';
 
 export default function HomePage() {
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    async function loadFeaturedProducts() {
+      const data = await getProducts({ featured: true, limit: 3 });
+      setFeaturedProducts(data);
+    }
+    loadFeaturedProducts();
+  }, []);
+
   return (
     <div>
       {/* Hero Section */}
@@ -51,6 +67,25 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Featured Products Section */}
+      {featuredProducts.length > 0 && (
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-8">Produits en vedette</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredProducts.map(product => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+            <div className="text-center mt-8">
+              <Link href="/produits">
+                <Button size="lg">Voir tous les produits</Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Promotion Section */}
       <section className="bg-white">
