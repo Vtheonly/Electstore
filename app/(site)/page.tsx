@@ -26,11 +26,12 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center justify-center text-white">
         <Image
-          src="https://images.unsplash.com/photo-1571175443880-49e1d25b2d6c?q=80&w=2070&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=2070&auto=format&fit=crop"
           alt="Boutique d'électroménager"
           fill
           style={{ objectFit: 'cover' }}
           className="absolute z-0"
+          priority
         />
         <div className="absolute inset-0 bg-brand-blue opacity-70"></div>
         <div className="relative z-10 text-center p-4">
@@ -100,7 +101,7 @@ export default function HomePage() {
           </div>
           <div className="hidden md:block">
              <Image 
-                src="https://images.unsplash.com/photo-1617933622489-5e2a2d6e5a40?q=80&w=1974&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop"
                 alt="Cuisine moderne"
                 width={600}
                 height={400}
