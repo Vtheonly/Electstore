@@ -103,6 +103,32 @@ export interface Database {
           created_at?: string
         }
       }
+      product_images: {
+        Row: {
+          id: string
+          product_id: string
+          url: string
+          is_main: boolean
+          display_order: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          product_id: string
+          url: string
+          is_main?: boolean
+          display_order?: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          product_id?: string
+          url?: string
+          is_main?: boolean
+          display_order?: number
+          created_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never

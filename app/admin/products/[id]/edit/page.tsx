@@ -10,9 +10,10 @@ import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { getProductById, updateProduct, getTags, createTag } from '@/lib/supabase/queries-client';
 import { CATEGORIES } from '@/lib/constants';
-import { ArrowLeft, Plus, X } from 'lucide-react';
+import { ArrowLeft, Plus, X, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { Tag } from '@/types';
+import { ImageUpload } from '@/components/admin/ImageUpload';
 
 export default function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -25,7 +26,8 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
   const [availableTags, setAvailableTags] = useState<Tag[]>([]);
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
   const [newTagName, setNewTagName] = useState('');
-
+  const [images, setImages] = useState<any[]>([]);
+  
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -34,7 +36,6 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
     category: CATEGORIES[0],
     stock: '0',
     featured: false,
-    image_url: '',
   });
 
   useEffect(() => {
@@ -56,8 +57,16 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
             category: product.category as any,
             stock: product.stock.toString(),
             featured: product.featured,
-            image_url: product.image_url || '',
           });
+
+          // Extract images
+          if (product.product_images) {
+            setImages(product.product_images.map((img: any) => ({
+              url: img.url,
+              is_main: img.is_main,
+              status: 'existing'
+            })));
+          }
 
           // Extract tag IDs from product_tags
           if (product.product_tags) {
@@ -117,7 +126,16 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
     setSubmitting(true);
     setError('');
 
+    const readyImages = images.filter(img => img.status === 'existing');
+    if (readyImages.length === 0) {
+      setError('Veuillez ajouter au moins une image.');
+      setSubmitting(false);
+      return;
+    }
+
     try {
+      const mainImage = readyImages.find(img => img.is_main) || readyImages[0];
+
       await updateProduct(id, {
         name: formData.name,
         description: formData.description || null,
@@ -126,8 +144,8 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
         category: formData.category,
         stock: parseInt(formData.stock),
         featured: formData.featured,
-        image_url: formData.image_url || null,
-      }, selectedTagIds);
+        image_url: mainImage.url, // Legacy support
+      }, selectedTagIds, readyImages.map(img => ({ url: img.url, is_main: img.is_main })));
 
       router.push('/admin/products');
       router.refresh();
@@ -243,66 +261,65 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
             </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium mb-2">URL de l'image</label>
-            <Input
-              type="url"
-              value={formData.image_url}
-              onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-              disabled={submitting}
-              placeholder="https://..."
-            />
-          </div>
+            <div className="space-y-6">
+              <div className="p-6 bg-gray-50 rounded-2xl space-y-6">
+                <ImageUpload 
+                  images={images} 
+                  onChange={setImages} 
+                />
 
-          <div className="space-y-4 pt-4 border-t border-blue-100">
-            <label className="block text-sm font-medium">Tags du produit</label>
-            
-            <div className="flex flex-wrap gap-2 mb-3">
-              {availableTags.map((tag) => (
-                <button
-                  key={tag.id}
-                  type="button"
-                  onClick={() => toggleTag(tag.id)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-                    selectedTagIds.includes(tag.id)
-                      ? 'bg-brand-blue text-white'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
-                >
-                  {tag.name}
-                  {selectedTagIds.includes(tag.id) && (
-                    <X className="inline-block h-3 w-3 ml-1" />
-                  )}
-                </button>
-              ))}
-              {fetchingTags && <p className="text-xs text-gray-400">Chargement des tags...</p>}
-            </div>
+                <div className="pt-6 border-t border-gray-200">
+                  <label className="block text-sm font-medium mb-4">Tags du produit</label>
+                  
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {availableTags.map((tag) => (
+                      <button
+                        key={tag.id}
+                        type="button"
+                        onClick={() => toggleTag(tag.id)}
+                        className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                          selectedTagIds.includes(tag.id)
+                            ? 'bg-brand-blue text-white shadow-md shadow-brand-blue/20'
+                            : 'bg-white text-gray-500 hover:bg-gray-100 border border-gray-200'
+                        }`}
+                        disabled={submitting}
+                      >
+                        {tag.name}
+                        {selectedTagIds.includes(tag.id) && (
+                          <X className="inline-block h-3 w-3 ml-1.5" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
 
-            <div className="flex gap-2">
-              <Input
-                value={newTagName}
-                onChange={(e) => setNewTagName(e.target.value)}
-                placeholder="Nouveau tag (ex: 4K, Smart, Promo)"
-                disabled={submitting}
-                className="max-w-[240px]"
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleAddTag();
-                  }
-                }}
-              />
-              <Button 
-                type="button" 
-                variant="outline" 
-                size="icon"
-                onClick={handleAddTag}
-                disabled={submitting || !newTagName.trim()}
-              >
-                <Plus className="h-4 w-4" />
-              </Button>
+                  <div className="flex gap-2">
+                    <Input
+                      value={newTagName}
+                      onChange={(e) => setNewTagName(e.target.value)}
+                      placeholder="Nouveau tag..."
+                      disabled={submitting}
+                      className="bg-white border-gray-200"
+                      onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          handleAddTag();
+                        }
+                      }}
+                    />
+                    <Button 
+                      type="button" 
+                      variant="outline" 
+                      size="icon"
+                      onClick={handleAddTag}
+                      disabled={submitting || !newTagName.trim()}
+                      className="bg-white"
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
 
           <div className="flex items-center">
             <input

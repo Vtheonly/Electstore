@@ -15,6 +15,9 @@ export type TagInsert = Database['public']['Tables']['tags']['Insert'];
 // Update types for modifying records
 export type ProductUpdate = Database['public']['Tables']['products']['Update'];
 
+export type ProductImage = Database['public']['Tables']['product_images']['Row'];
+export type ProductImageInsert = Database['public']['Tables']['product_images']['Insert'];
+
 // Cart types
 export interface CartItem {
   product: Product;
@@ -43,7 +46,7 @@ export interface ProductFormData {
   category: string;
   stock: number;
   featured: boolean;
-  image_url?: string;
+  images: { url: string; is_main: boolean; file?: File }[];
   tags: string[];
 }
 
