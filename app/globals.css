@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-white text-gray-800;
+@layer base {
+  :root {
+    --brand-blue: 26 42 108; /* #1a2a6c */
+    --brand-orange: 255 107 107; /* #ff6b6b */
+  }
+
+  body {
+    @apply bg-white text-gray-900 font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading font-bold tracking-tight text-brand-blue-dark;
+  }
+
+  ::selection {
+    @apply bg-brand-blue/10 text-brand-blue;
+  }
+}
+
+.glass-morphism {
+  @apply bg-white/80 backdrop-blur-md border border-white/20;
 }

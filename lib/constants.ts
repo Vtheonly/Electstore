@@ -18,12 +18,13 @@ export const CATEGORIES = [
 
 export const STORE_INFO = {
   name: 'ElectroMaison',
-  phone: '01 23 45 67 89',
-  email: 'contact@electromaison.fr',
-  address: '123 Rue du Commerce, 75015 Paris, France',
+  phone: '021 23 45 67',
+  phone_mobile: '0550 12 34 56',
+  email: 'contact@electromaison.dz',
+  address: '123 Boulevard des Martyrs, Alger, Algérie',
   hours: {
-    weekdays: 'Lundi - Samedi : 9h - 19h',
-    weekend: 'Dimanche : 10h - 18h',
+    weekdays: 'Samedi - Jeudi : 9h - 19h',
+    weekend: 'Vendredi : Fermé',
   },
 } as const;
 

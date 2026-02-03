@@ -17,23 +17,33 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="bg-white shadow-md sticky top-0 z-50">
+      <header className="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100">
         <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold text-brand-blue">
-            ElectroMaison
+          <Link href="/" className="text-2xl font-bold font-heading text-brand-blue-dark tracking-tight">
+            Electro<span className="text-brand-orange">Maison</span>
           </Link>
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="text-gray-600 hover:text-brand-blue transition-colors">
+              <Link 
+                key={link.href} 
+                href={link.href} 
+                className="text-sm font-medium text-gray-600 hover:text-brand-blue transition-all relative group"
+              >
                 {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-blue transition-all group-hover:w-full" />
               </Link>
             ))}
           </div>
-          <div className="flex items-center">
-            <Button variant="ghost" size="icon" onClick={openCart} className="relative">
-              <ShoppingCart className="h-6 w-6" />
+          <div className="flex items-center gap-2">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={openCart} 
+              className="relative rounded-full hover:bg-brand-blue/5 transition-all active:scale-95"
+            >
+              <ShoppingCart className="h-5 w-5 text-gray-700" />
               {cart.itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-brand-orange text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                <span className="absolute -top-1 -right-1 bg-brand-orange text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold animate-bounce-subtle">
                   {cart.itemCount}
                 </span>
               )}

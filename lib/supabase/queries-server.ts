@@ -18,3 +18,19 @@ export async function isUserAdmin(userId: string): Promise<boolean> {
 
   return (data as any).role === 'admin';
 }
+
+export async function getAdminStats() {
+  const supabase = (await createClient()) as SupabaseClient<Database>;
+
+  const [productsCount, usersCount] = await Promise.all([
+    supabase.from('products').select('*', { count: 'exact', head: true }),
+    supabase.from('user_profiles').select('*', { count: 'exact', head: true })
+  ]);
+
+  return {
+    products: productsCount.count || 0,
+    clients: usersCount.count || 0,
+    orders: 0, // Orders table not yet implemented
+    revenue: 0, // Orders table not yet implemented
+  };
+}

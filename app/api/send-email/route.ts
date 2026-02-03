@@ -21,8 +21,8 @@ export async function POST(request: NextRequest) {
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: 'ElectroMaison <onboarding@resend.dev>', // Change this to your verified domain
-      to: ['contact@electromaison.fr'], // Your business email
+      from: `${name} via ElectroMaison <onboarding@resend.dev>`, 
+      to: ['mersel@electromaison.dz'], // In dev we use this, but eventually it should be STORE_INFO.email
       replyTo: email,
       subject: `Nouveau message de ${name}`,
       html: `

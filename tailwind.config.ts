@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-inter)', 'sans-serif'],
+        heading: ['var(--font-outfit)', 'sans-serif'],
+      },
       colors: {
         'brand-blue': '#1a2a6c',
         'brand-blue-light': '#b21f1f',
@@ -15,6 +19,24 @@ const config: Config = {
         'brand-orange': '#ff6b6b',
         'brand-gray': '#f4f4f4',
       },
+      boxShadow: {
+        'premium': '0 10px 30px -5px rgba(26, 42, 108, 0.1), 0 12px 10px -6px rgba(26, 42, 108, 0.1)',
+        'premium-hover': '0 20px 40px -5px rgba(26, 42, 108, 0.15), 0 12px 15px -8px rgba(26, 42, 108, 0.15)',
+      },
+      animation: {
+        'bounce-subtle': 'bounce-subtle 2s infinite',
+        'slow-zoom': 'slow-zoom 20s ease-in-out infinite alternate',
+      },
+      keyframes: {
+        'bounce-subtle': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-2px)' },
+        },
+        'slow-zoom': {
+          '0%': { transform: 'scale(1)' },
+          '100%': { transform: 'scale(1.1)' },
+        }
+      }
     },
   },
   plugins: [],
