@@ -4,8 +4,9 @@
 
 @layer base {
   :root {
-    --brand-blue: 26 42 108; /* #1a2a6c */
-    --brand-orange: 255 107 107; /* #ff6b6b */
+    --brand-blue: 162 210 255; /* #a2d2ff */
+    --brand-blue-light: 188 224 255; /* #bce0ff */
+    --brand-orange: 255 107 107; /* Keeping as accent */
   }
 
   body {

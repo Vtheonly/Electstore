@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Days_One } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/contexts/CartContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
+const daysOne = Days_One({ 
+  weight: "400",
+  subsets: ["latin"], 
+  variable: "--font-days-one" 
+});
 
 export const metadata: Metadata = {
-  title: "ElectroMaison - Votre spécialiste en électroménager",
-  description: "Qualité, prix compétitifs et service client exceptionnel pour équiper votre maison.",
+  title: "Tamani Électroménager - Excellence & Innovation depuis 20 ans",
+  description: "Votre partenaire de confiance pour l'électroménager de qualité en Algérie.",
 };
 
 export default function RootLayout({
@@ -18,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${daysOne.variable} font-sans antialiased`}>
         <CartProvider>
           {children}
         </CartProvider>

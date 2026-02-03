@@ -19,8 +19,8 @@ export default function Navbar() {
     <>
       <header className="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100">
         <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold font-heading text-brand-blue-dark tracking-tight">
-            Electro<span className="text-brand-orange">Maison</span>
+          <Link href="/" className="text-2xl font-black font-heading text-brand-blue-dark tracking-tight">
+            TAMANI<span className="text-brand-blue">.</span>
           </Link>
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (

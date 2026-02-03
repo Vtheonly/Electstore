@@ -17,10 +17,11 @@ export const CATEGORIES = [
 ] as const;
 
 export const STORE_INFO = {
-  name: 'ElectroMaison',
+  name: 'Tamani',
+  full_name: 'Tamani Électroménager',
   phone: '021 23 45 67',
   phone_mobile: '0550 12 34 56',
-  email: 'contact@electromaison.dz',
+  email: 'contact@tamani-dz.com',
   address: '123 Boulevard des Martyrs, Alger, Algérie',
   hours: {
     weekdays: 'Samedi - Jeudi : 9h - 19h',

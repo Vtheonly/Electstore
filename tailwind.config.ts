@@ -10,13 +10,13 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ['var(--font-inter)', 'sans-serif'],
-        heading: ['var(--font-outfit)', 'sans-serif'],
+        heading: ['var(--font-days-one)', 'sans-serif'],
       },
       colors: {
-        'brand-blue': '#1a2a6c',
-        'brand-blue-light': '#b21f1f',
-        'brand-blue-dark': '#001e4c',
-        'brand-orange': '#ff6b6b',
+        'brand-blue': '#a2d2ff', // Bleu céleste
+        'brand-blue-light': '#bce0ff', // Bleu clair
+        'brand-blue-dark': '#001e4c', // Maintaining dark for contrast
+        'brand-orange': '#ff6b6b', // Keeping as accent if needed, or we can use another color later
         'brand-gray': '#f4f4f4',
       },
       boxShadow: {
