@@ -1,10 +1,10 @@
 import { createClient } from './server';
 import { Database } from '@/types/database.types';
-import { SupabaseClient } from '@supabase/supabase-js';
+
 
 // Admin helper for server-side operations
 export async function isUserAdmin(userId: string): Promise<boolean> {
-  const supabase = (await createClient()) as SupabaseClient<Database>;
+  const supabase = await createClient();
   
   const { data, error } = await supabase
     .from('user_profiles')
@@ -20,7 +20,7 @@ export async function isUserAdmin(userId: string): Promise<boolean> {
 }
 
 export async function getAdminStats() {
-  const supabase = (await createClient()) as SupabaseClient<Database>;
+  const supabase = await createClient();
 
   const [productsCount, usersCount] = await Promise.all([
     supabase.from('products').select('*', { count: 'exact', head: true }),

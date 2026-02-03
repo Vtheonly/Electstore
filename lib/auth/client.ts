@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/client';
 import { Database } from '@/types/database.types';
-import { SupabaseClient } from '@supabase/supabase-js';
+
 
 /**
  * Sign in with email and password
@@ -52,7 +52,7 @@ export async function getCurrentUser() {
  * Check if the current user is an admin (client-side)
  */
 export async function isAdmin() {
-  const supabase = createClient() as SupabaseClient<Database>;
+  const supabase = createClient();
   
   const { data: { user } } = await supabase.auth.getUser();
   
@@ -77,7 +77,7 @@ export async function isAdmin() {
  * Sign up a new user
  */
 export async function signUp(email: string, password: string) {
-  const supabase = createClient() as SupabaseClient<Database>;
+  const supabase = createClient();
   
   const { data, error } = await supabase.auth.signUp({
     email,

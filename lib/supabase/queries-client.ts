@@ -1,7 +1,7 @@
 import { createClient } from './client';
 import { Product, ProductInsert, ProductUpdate, Tag } from '@/types';
 import { Database } from '@/types/database.types';
-import { SupabaseClient } from '@supabase/supabase-js';
+
 
 // Product Queries
 
@@ -11,7 +11,7 @@ export async function getProducts(options?: {
   featured?: boolean;
   limit?: number;
 }) {
-  const supabase = createClient() as SupabaseClient<Database>;
+  const supabase = createClient();
   
   let query = supabase
     .from('products')
@@ -51,7 +51,7 @@ export async function getProducts(options?: {
 }
 
 export async function getProductById(id: string) {
-  const supabase = createClient() as SupabaseClient<Database>;
+  const supabase = createClient();
   
   const { data, error } = await supabase
     .from('products')
@@ -73,7 +73,7 @@ export async function getProductById(id: string) {
 }
 
 export async function createProduct(product: ProductInsert) {
-  const supabase = createClient() as SupabaseClient<Database>;
+  const supabase = createClient();
   
   const { data, error } = await (supabase
     .from('products') as any)
@@ -90,7 +90,7 @@ export async function createProduct(product: ProductInsert) {
 }
 
 export async function updateProduct(id: string, updates: ProductUpdate) {
-  const supabase = createClient() as SupabaseClient<Database>;
+  const supabase = createClient();
   
   const { data, error } = await (supabase
     .from('products') as any)
@@ -108,7 +108,7 @@ export async function updateProduct(id: string, updates: ProductUpdate) {
 }
 
 export async function deleteProduct(id: string) {
-  const supabase = createClient() as SupabaseClient<Database>;
+  const supabase = createClient();
   
   const { error } = await supabase
     .from('products')
@@ -126,7 +126,7 @@ export async function deleteProduct(id: string) {
 // Tag Queries
 
 export async function getTags() {
-  const supabase = createClient() as SupabaseClient<Database>;
+  const supabase = createClient();
   
   const { data, error } = await supabase
     .from('tags')
@@ -142,7 +142,7 @@ export async function getTags() {
 }
 
 export async function createTag(name: string, slug: string) {
-  const supabase = createClient() as SupabaseClient<Database>;
+  const supabase = createClient();
   
   const { data, error } = await (supabase
     .from('tags') as any)
@@ -159,7 +159,7 @@ export async function createTag(name: string, slug: string) {
 }
 
 export async function addTagToProduct(productId: string, tagId: string) {
-  const supabase = createClient() as SupabaseClient<Database>;
+  const supabase = createClient();
   
   const { error } = await (supabase
     .from('product_tags') as any)
@@ -174,7 +174,7 @@ export async function addTagToProduct(productId: string, tagId: string) {
 }
 
 export async function removeTagFromProduct(productId: string, tagId: string) {
-  const supabase = createClient() as SupabaseClient<Database>;
+  const supabase = createClient();
   
   const { error } = await supabase
     .from('product_tags')
