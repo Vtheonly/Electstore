@@ -7,7 +7,7 @@ export default function AboutPage() {
     <div>
       {/* Hero Section */}
       <section className="bg-brand-blue py-16 text-white text-center">
-        <h1 className="text-4xl font-bold">À propos d'ElectroMaison</h1>
+        <h1 className="text-4xl font-bold">À propos de Tamani Électroménager</h1>
         <p className="mt-4 text-lg">Votre partenaire de confiance pour tous vos besoins en électroménager depuis plus de 15 ans.</p>
       </section>
 
@@ -16,7 +16,7 @@ export default function AboutPage() {
         <div>
           <h2 className="text-3xl font-bold mb-4">Notre Histoire</h2>
           <p className="text-gray-600 leading-relaxed">
-            Fondée en 2010, ElectroMaison est née de la passion de ses créateurs pour l'innovation et le service client. Nous avons commencé comme une petite boutique de quartier et sommes devenus aujourd'hui une référence dans le domaine de l'électroménager.
+            Fondée en 2010, Tamani Électroménager est née de la passion de ses créateurs pour l'innovation et le service client. Nous avons commencé comme une petite boutique de quartier et sommes devenus aujourd'hui une référence dans le domaine de l'électroménager.
             <br /><br />
             Notre mission est simple : offrir à nos clients des produits de qualité aux meilleurs prix, tout en garantissant un service personnalisé et des conseils d'experts. Aujourd'hui, nous sommes fiers de compter plus de 10 000 clients satisfaits et de continuer à grandir grâce à votre confiance.
           </p>

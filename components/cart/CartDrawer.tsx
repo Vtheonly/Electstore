@@ -15,7 +15,7 @@ export function CartDrawer() {
   const handleCheckout = () => {
     const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE || '213550123456'; // Default if not set
     
-    let message = `Bonjour ElectroMaison, je souhaite passer une commande :\n\n`;
+    let message = `Bonjour Tamani Électroménager, je souhaite passer une commande :\n\n`;
     
     cart.items.forEach((item) => {
       message += `- ${item.product.name} (x${item.quantity}) : ${formatCurrency(item.product.price * item.quantity)}\n`;

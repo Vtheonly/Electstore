@@ -6,7 +6,14 @@ export function AdminNav() {
     <nav className="bg-brand-blue text-white shadow-lg">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-6">
-          <h1 className="text-xl font-bold">Admin - ElectroMaison</h1>
+          <Link href="/admin/dashboard" className="flex items-center space-x-2">
+            <img 
+              src="/images/logotamani.png" 
+              alt="TAMANI Admin" 
+              className="h-8 w-auto brightness-0 invert" 
+            />
+            <span className="font-bold border-l border-white/20 pl-3">Admin</span>
+          </Link>
           <div className="hidden md:flex space-x-4">
             <Link href="/admin/dashboard" className="hover:text-gray-200 transition-colors">
               Dashboard

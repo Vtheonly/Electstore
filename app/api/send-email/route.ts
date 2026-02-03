@@ -21,8 +21,8 @@ export async function POST(request: NextRequest) {
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: `${name} via ElectroMaison <onboarding@resend.dev>`, 
-      to: ['mersel@electromaison.dz'], // In dev we use this, but eventually it should be STORE_INFO.email
+      from: `${name} via Tamani Électroménager <onboarding@resend.dev>`, 
+      to: ['mersel@tamani-dz.com'], // In dev we use this, but eventually it should be STORE_INFO.email
       replyTo: email,
       subject: `Nouveau message de ${name}`,
       html: `
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
           </div>
           <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
           <p style="color: #666; font-size: 12px;">
-            Ce message a été envoyé depuis le formulaire de contact d'ElectroMaison
+            Ce message a été envoyé depuis le formulaire de contact de Tamani Électroménager
           </p>
         </div>
       `,

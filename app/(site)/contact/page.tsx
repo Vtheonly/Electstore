@@ -59,29 +59,29 @@ export default function ContactPage() {
             <MapPin className="h-6 w-6 text-brand-blue mt-1" />
             <div>
               <h3 className="font-semibold">Adresse</h3>
-              <p className="text-gray-600">123 Rue du Commerce, 75015 Paris, France</p>
+              <p className="text-gray-600">123 Boulevard des Martyrs, Alger</p>
             </div>
           </div>
           <div className="flex items-start space-x-4">
             <Phone className="h-6 w-6 text-brand-blue mt-1" />
             <div>
               <h3 className="font-semibold">Téléphone</h3>
-              <p className="text-gray-600">01 23 45 67 89</p>
+              <p className="text-gray-600">021 23 45 67</p>
             </div>
           </div>
           <div className="flex items-start space-x-4">
             <Mail className="h-6 w-6 text-brand-blue mt-1" />
             <div>
               <h3 className="font-semibold">Email</h3>
-              <p className="text-gray-600">contact@electromaison.fr</p>
+              <p className="text-gray-600">contact@tamani-dz.com</p>
             </div>
           </div>
           <div className="flex items-start space-x-4">
             <Clock className="h-6 w-6 text-brand-blue mt-1" />
             <div>
               <h3 className="font-semibold">Horaires</h3>
-              <p className="text-gray-600">Lundi - Samedi : 9h - 19h</p>
-              <p className="text-gray-600">Dimanche : 10h - 18h</p>
+              <p className="text-gray-600">Samedi - Jeudi : 9h - 19h</p>
+              <p className="text-brand-orange/80 font-medium">Vendredi : Fermé</p>
             </div>
           </div>
         </div>

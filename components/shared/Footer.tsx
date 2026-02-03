@@ -4,8 +4,12 @@ export default function Footer() {
   return (
     <footer className="bg-brand-blue-dark text-white font-sans">
       <div className="container mx-auto py-16 px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
-        <div>
-          <h3 className="text-2xl font-heading font-bold mb-6">TAMANI.</h3>
+        <div className="flex flex-col gap-6">
+          <img 
+            src="/images/logotamani.png" 
+            alt="TAMANI Électroménager" 
+            className="h-12 w-auto self-start brightness-0 invert" 
+          />
           <p className="text-blue-100/70 leading-relaxed font-medium">Votre partenaire de confiance pour l'électroménager de qualité. Excellence et innovation à votre service depuis plus de vingt ans.</p>
         </div>
         <div>

@@ -34,8 +34,13 @@ export default function AdminLoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-brand-gray px-4">
       <Card className="w-full max-w-md p-8">
         <div className="text-center mb-8">
+          <img 
+            src="/images/logotamani.png" 
+            alt="TAMANI Électroménager" 
+            className="h-10 w-auto mx-auto mb-4" 
+          />
           <h1 className="text-3xl font-bold text-brand-blue mb-2">Connexion Admin</h1>
-          <p className="text-gray-600">ElectroMaison - Panneau d'administration</p>
+          <p className="text-gray-600">Panneau d'administration</p>
         </div>
 
         {error && (
@@ -56,7 +61,7 @@ export default function AdminLoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
               disabled={loading}
-              placeholder="admin@electromaison.fr"
+              placeholder="admin@tamani-dz.com"
             />
           </div>
 
