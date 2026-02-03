@@ -2,20 +2,27 @@
 
 // /app/admin/products/new/page.tsx
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Card } from '@/components/ui/Card';
-import { createProduct } from '@/lib/supabase/queries-client';
+import { Badge } from '@/components/ui/Badge';
+import { createProduct, getTags, createTag } from '@/lib/supabase/queries-client';
 import { CATEGORIES } from '@/lib/constants';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Plus, X } from 'lucide-react';
 import Link from 'next/link';
+import { Tag } from '@/types';
 
 export default function NewProductPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [fetchingTags, setFetchingTags] = useState(true);
   const [error, setError] = useState('');
+  const [availableTags, setAvailableTags] = useState<Tag[]>([]);
+  const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
+  const [newTagName, setNewTagName] = useState('');
+  
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -26,6 +33,55 @@ export default function NewProductPage() {
     featured: false,
     image_url: '',
   });
+
+  useEffect(() => {
+    async function loadTags() {
+      try {
+        const tags = await getTags();
+        setAvailableTags(tags);
+      } catch (err) {
+        console.error('Error loading tags:', err);
+      } finally {
+        setFetchingTags(false);
+      }
+    }
+    loadTags();
+  }, []);
+
+  const handleAddTag = async () => {
+    if (!newTagName.trim()) return;
+    
+    // Check if tag already exists
+    const existingTag = availableTags.find(t => t.name.toLowerCase() === newTagName.toLowerCase());
+    if (existingTag) {
+      if (!selectedTagIds.includes(existingTag.id)) {
+        setSelectedTagIds([...selectedTagIds, existingTag.id]);
+      }
+      setNewTagName('');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const slug = newTagName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+      const newTag = await createTag(newTagName.trim(), slug);
+      setAvailableTags([...availableTags, newTag]);
+      setSelectedTagIds([...selectedTagIds, newTag.id]);
+      setNewTagName('');
+    } catch (err) {
+      setError('Erreur lors de la création du tag');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const toggleTag = (tagId: string) => {
+    if (selectedTagIds.includes(tagId)) {
+      setSelectedTagIds(selectedTagIds.filter(id => id !== tagId));
+    } else {
+      setSelectedTagIds([...selectedTagIds, tagId]);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +98,7 @@ export default function NewProductPage() {
         stock: parseInt(formData.stock),
         featured: formData.featured,
         image_url: formData.image_url || null,
-      });
+      }, selectedTagIds);
 
       router.push('/admin/products');
     } catch (err: any) {
@@ -161,6 +217,56 @@ export default function NewProductPage() {
             <p className="text-xs text-gray-500 mt-1">
               URL vers l'image du produit (Supabase Storage ou externe)
             </p>
+          </div>
+
+          <div className="space-y-4 pt-4 border-t">
+            <label className="block text-sm font-medium">Tags du produit</label>
+            
+            <div className="flex flex-wrap gap-2 mb-3">
+              {availableTags.map((tag) => (
+                <button
+                  key={tag.id}
+                  type="button"
+                  onClick={() => toggleTag(tag.id)}
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                    selectedTagIds.includes(tag.id)
+                      ? 'bg-brand-blue text-white'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  {tag.name}
+                  {selectedTagIds.includes(tag.id) && (
+                    <X className="inline-block h-3 w-3 ml-1" />
+                  )}
+                </button>
+              ))}
+              {fetchingTags && <p className="text-xs text-gray-400">Chargement des tags...</p>}
+            </div>
+
+            <div className="flex gap-2">
+              <Input
+                value={newTagName}
+                onChange={(e) => setNewTagName(e.target.value)}
+                placeholder="Nouveau tag (ex: 4K, Smart, Promo)"
+                disabled={loading}
+                className="max-w-[240px]"
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleAddTag();
+                  }
+                }}
+              />
+              <Button 
+                type="button" 
+                variant="outline" 
+                size="icon"
+                onClick={handleAddTag}
+                disabled={loading || !newTagName.trim()}
+              >
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
 
           <div className="flex items-center">

@@ -72,7 +72,7 @@ export async function getProductById(id: string) {
   return data;
 }
 
-export async function createProduct(product: ProductInsert) {
+export async function createProduct(product: ProductInsert, tagIds?: string[]) {
   const supabase = createClient();
   
   const { data, error } = await (supabase
@@ -86,10 +86,28 @@ export async function createProduct(product: ProductInsert) {
     throw error;
   }
 
+  // If there are tags, insert them into product_tags junction table
+  if (tagIds && tagIds.length > 0) {
+    const productTags = tagIds.map(tagId => ({
+      product_id: data.id,
+      tag_id: tagId
+    }));
+
+    const { error: tagsError } = await (supabase
+      .from('product_tags') as any)
+      .insert(productTags);
+
+    if (tagsError) {
+      console.error('Error adding tags to product:', tagsError);
+      // We don't throw here to avoid failing product creation, 
+      // but in a real app you might want to handle this.
+    }
+  }
+
   return data;
 }
 
-export async function updateProduct(id: string, updates: ProductUpdate) {
+export async function updateProduct(id: string, updates: ProductUpdate, tagIds?: string[]) {
   const supabase = createClient();
   
   const { data, error } = await (supabase
@@ -102,6 +120,31 @@ export async function updateProduct(id: string, updates: ProductUpdate) {
   if (error) {
     console.error('Error updating product:', error);
     throw error;
+  }
+
+  // Handle tag synchronization if tagIds is provided
+  if (tagIds !== undefined) {
+    // 1. Remove all existing tags
+    await supabase
+      .from('product_tags')
+      .delete()
+      .eq('product_id', id);
+
+    // 2. Insert new tags
+    if (tagIds.length > 0) {
+      const productTags = tagIds.map(tagId => ({
+        product_id: id,
+        tag_id: tagId
+      }));
+
+      const { error: tagsError } = await (supabase
+        .from('product_tags') as any)
+        .insert(productTags);
+
+      if (tagsError) {
+        console.error('Error updating tags for product:', tagsError);
+      }
+    }
   }
 
   return data;
