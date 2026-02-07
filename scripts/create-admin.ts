@@ -38,8 +38,14 @@ async function createAdmin() {
     if (authError.message.includes('already registered')) {
       console.log('User already exists in Auth. Proceeding to update profile...');
       // Get existing user ID
-      const { data: users } = await supabase.auth.admin.listUsers();
-      const existingUser = users.users.find(u => u.email === email);
+      const { data: usersData, error: listError } = await supabase.auth.admin.listUsers();
+      
+      if (listError || !usersData || !usersData.users) {
+        console.error('Error listing users:', listError?.message);
+        return;
+      }
+
+      const existingUser = usersData.users.find((u: any) => u.email === email);
       if (existingUser) {
         await promoteAdmin(existingUser.id);
       }

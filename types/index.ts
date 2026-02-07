@@ -3,7 +3,10 @@
 import { Database } from './database.types';
 
 // Supabase table row types
-export type Product = Database['public']['Tables']['products']['Row'];
+export type Product = Database['public']['Tables']['products']['Row'] & {
+  product_images?: Database['public']['Tables']['product_images']['Row'][];
+  product_tags?: { tags: Database['public']['Tables']['tags']['Row'] }[];
+};
 export type Tag = Database['public']['Tables']['tags']['Row'];
 export type ProductTag = Database['public']['Tables']['product_tags']['Row'];
 export type UserProfile = Database['public']['Tables']['user_profiles']['Row'];

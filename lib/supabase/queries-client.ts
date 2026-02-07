@@ -19,7 +19,8 @@ export async function getProducts(options?: {
       *,
       product_tags(
         tags(*)
-      )
+      ),
+      product_images(*)
     `)
     .order('created_at', { ascending: false });
 
@@ -59,7 +60,8 @@ export async function getProductById(id: string) {
       *,
       product_tags(
         tags(*)
-      )
+      ),
+      product_images(*)
     `)
     .eq('id', id)
     .single();

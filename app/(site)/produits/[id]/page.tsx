@@ -20,6 +20,19 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
+  const [activeImage, setActiveImage] = useState<string>('');
+
+  useEffect(() => {
+    if (product) {
+       // Set initial active image
+       if (product.product_images && product.product_images.length > 0) {
+         const mainImg = product.product_images.find(img => img.is_main) || product.product_images[0];
+         setActiveImage(mainImg.url);
+       } else {
+         setActiveImage(product.image_url || '');
+       }
+    }
+  }, [product]);
 
   useEffect(() => {
     async function loadProduct() {
@@ -73,22 +86,44 @@ export default function ProductDetailPage() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-12">
-        {/* Product Image */}
-        <div className="relative">
-          <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden">
+        {/* Product Image Gallery */}
+        <div className="space-y-4">
+          <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden border border-gray-100">
             <Image
-              src={product.image_url || '/placeholder-product.jpg'}
+              src={activeImage || product.image_url || '/placeholder-product.jpg'}
               alt={product.name}
               fill
               className="object-cover"
               priority
             />
             {discount && (
-              <span className="absolute top-4 right-4 bg-red-500 text-white text-sm font-bold py-2 px-3 rounded-full">
+              <span className="absolute top-4 right-4 bg-red-500 text-white text-sm font-bold py-2 px-3 rounded-full shadow-md z-10">
                 {discount}
               </span>
             )}
           </div>
+          
+          {/* Thumbnails */}
+          {product.product_images && product.product_images.length > 0 && (
+             <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+               {product.product_images.sort((a, b) => a.display_order - b.display_order).map((img) => (
+                 <button
+                   key={img.id}
+                   onClick={() => setActiveImage(img.url)}
+                   className={`relative w-20 h-20 flex-shrink-0 rounded-md overflow-hidden border-2 transition-all ${
+                     activeImage === img.url ? 'border-brand-blue shadow-md scale-105' : 'border-transparent hover:border-gray-300'
+                   }`}
+                 >
+                   <Image
+                     src={img.url}
+                     alt={product.name}
+                     fill
+                     className="object-cover"
+                   />
+                 </button>
+               ))}
+             </div>
+          )}
         </div>
 
         {/* Product Info */}
