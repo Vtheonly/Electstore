@@ -30,27 +30,32 @@ export default function HomePage() {
           alt="Boutique d'électroménager"
           fill
           style={{ objectFit: 'cover' }}
-          className="absolute z-0 transition-transform duration-[10s] scale-110 animate-slow-zoom"
+          className="absolute z-0"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-blue/90 via-brand-blue/40 to-brand-blue-dark/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-blue/80 via-brand-blue/50 to-brand-blue-dark/90"></div>
         <div className="relative z-10 text-center p-6 max-w-4xl mx-auto">
-          <div className="mb-6 inline-block">
-            <span className="bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-full shadow-xl border border-white/20">
-              TAMANI ÉLECTROMÉNAGER
-            </span>
+          {/* Logo */}
+          <div className="mb-8">
+            <Image
+              src="/images/logotamani.png"
+              alt="Tamani Électroménager"
+              width={280}
+              height={100}
+              className="mx-auto drop-shadow-2xl"
+            />
           </div>
-          <h1 className="text-5xl md:text-8xl font-heading font-black mb-6 leading-[1] tracking-tight text-white drop-shadow-2xl">
+          <h1 className="text-4xl md:text-7xl font-heading font-black mb-6 leading-[1.1] tracking-tight text-white drop-shadow-2xl">
             L'excellence <br/><span className="text-white/80">en mouvement</span>
           </h1>
           <p className="text-lg md:text-xl mb-10 text-white/90 font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-md">
             Depuis plus de vingt ans, Tamani s'engage pour l'innovation, la qualité et votre confort au quotidien.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <Button asChild size="lg" className="h-16 px-12 rounded-2xl shadow-premium hover:shadow-premium-hover transition-all bg-white text-brand-blue-dark hover:bg-white/90 border-none scale-105 active:scale-100 font-bold uppercase tracking-wider">
+            <Button asChild size="lg" className="h-14 px-10 rounded-xl shadow-premium hover:shadow-premium-hover transition-all bg-white text-brand-blue-dark hover:bg-white/90 border-none font-bold uppercase tracking-wider">
               <Link href="/produits">Découvrir</Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="h-16 px-12 rounded-2xl border-white/30 text-white hover:bg-white/10 backdrop-blur-sm font-bold uppercase tracking-wider">
+            <Button asChild variant="outline" size="lg" className="h-14 px-10 rounded-xl border-white/30 text-white hover:bg-white/10 backdrop-blur-sm font-bold uppercase tracking-wider">
               <Link href="/contact">Contact</Link>
             </Button>
           </div>
@@ -129,13 +134,13 @@ export default function HomePage() {
                 <Link href="/produits">Découvrir l'offre</Link>
              </Button>
           </div>
-          <div className="hidden md:block">
+          <div className="hidden md:block p-4">
              <Image 
-                src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop"
-                alt="Cuisine moderne"
-                width={600}
+                src="/images/refrigerateur-samsung.jpg"
+                alt="Réfrigérateur en promotion"
+                width={500}
                 height={400}
-                className="rounded-lg object-cover"
+                className="rounded-lg object-cover shadow-xl"
               />
           </div>
         </div>

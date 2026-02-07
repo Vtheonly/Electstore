@@ -19,11 +19,9 @@ export async function getProducts(options?: {
       *,
       product_tags(
         tags(*)
-      ),
-      product_images(*)
+      )
     `)
-    .order('created_at', { ascending: false })
-    .order('display_order', { foreignTable: 'product_images', ascending: true });
+    .order('created_at', { ascending: false });
 
   if (options?.category) {
     query = query.eq('category', options.category);
@@ -61,11 +59,9 @@ export async function getProductById(id: string) {
       *,
       product_tags(
         tags(*)
-      ),
-      product_images(*)
+      )
     `)
     .eq('id', id)
-    .order('display_order', { foreignTable: 'product_images', ascending: true })
     .single();
 
   if (error) {
