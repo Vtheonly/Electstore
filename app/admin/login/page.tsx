@@ -61,7 +61,7 @@ export default function AdminLoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
               disabled={loading}
-              placeholder="admin@tamani-dz.com"
+              placeholder="user@admin.fr"
             />
           </div>
 
