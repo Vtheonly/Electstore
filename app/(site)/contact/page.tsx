@@ -59,21 +59,29 @@ export default function ContactPage() {
             <MapPin className="h-6 w-6 text-brand-blue mt-1" />
             <div>
               <h3 className="font-semibold">Adresse</h3>
-              <p className="text-gray-600">123 Boulevard des Martyrs, Alger</p>
+              <a 
+                href="https://www.google.com/maps?q=36.7010273,4.039739&z=17&hl=en" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-gray-600 hover:text-brand-blue transition-colors underline"
+              >
+                Akkoumoh, Algérie
+              </a>
             </div>
           </div>
           <div className="flex items-start space-x-4">
             <Phone className="h-6 w-6 text-brand-blue mt-1" />
             <div>
               <h3 className="font-semibold">Téléphone</h3>
-              <p className="text-gray-600">021 23 45 67</p>
+              <a href="tel:+213552010434" className="text-gray-600 hover:text-brand-blue transition-colors block">+213 552 010 434</a>
+              <a href="tel:+213669677849" className="text-gray-600 hover:text-brand-blue transition-colors block">0669 67 78 49</a>
             </div>
           </div>
           <div className="flex items-start space-x-4">
             <Mail className="h-6 w-6 text-brand-blue mt-1" />
             <div>
               <h3 className="font-semibold">Email</h3>
-              <p className="text-gray-600">contact@tamani-dz.com</p>
+              <a href="mailto:Akkoumoh10@gmail.com" className="text-gray-600 hover:text-brand-blue transition-colors">Akkoumoh10@gmail.com</a>
             </div>
           </div>
           <div className="flex items-start space-x-4">
@@ -83,6 +91,20 @@ export default function ContactPage() {
               <p className="text-gray-600">Samedi - Jeudi : 9h - 19h</p>
               <p className="text-brand-orange/80 font-medium">Vendredi : Fermé</p>
             </div>
+          </div>
+
+          {/* Google Maps Embed */}
+          <div className="mt-6 rounded-lg overflow-hidden shadow-md">
+            <iframe
+              src="https://maps.google.com/maps?q=36.7010273,4.039739&z=17&hl=en&output=embed"
+              width="100%"
+              height="250"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Notre emplacement"
+            />
           </div>
         </div>
 

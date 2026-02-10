@@ -21,8 +21,8 @@ export async function POST(request: NextRequest) {
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: `${name} via Tamani Électroménager <onboarding@resend.dev>`, 
-      to: ['mersel@tamani-dz.com'], // In dev we use this, but eventually it should be STORE_INFO.email
+      from: 'Tamani Électroménager <onboarding@resend.dev>', 
+      to: ['Akkoumoh10@gmail.com'],
       replyTo: email,
       subject: `Nouveau message de ${name}`,
       html: `

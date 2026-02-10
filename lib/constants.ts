@@ -19,10 +19,11 @@ export const CATEGORIES = [
 export const STORE_INFO = {
   name: 'Tamani',
   full_name: 'Tamani Électroménager',
-  phone: '021 23 45 67',
-  phone_mobile: '0550 12 34 56',
-  email: 'contact@tamani-dz.com',
-  address: '123 Boulevard des Martyrs, Alger, Algérie',
+  phone: '+213552010434',
+  phone_mobile: '0669 67 78 49',
+  email: 'Akkoumoh10@gmail.com',
+  address: 'Akkoumoh, Algérie',
+  mapUrl: 'https://www.google.com/maps?q=36.7010273,4.039739&z=17&hl=en',
   hours: {
     weekdays: 'Samedi - Jeudi : 9h - 19h',
     weekend: 'Vendredi : Fermé',
