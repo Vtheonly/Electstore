@@ -13,6 +13,11 @@ export const CATEGORIES = [
   'Climatiseurs',
   'Cuisinières',
   'Micro-ondes',
+  'Lave-vaisselle',
+  'Four',
+  'Hotte',
+  'Plaque de cuisson',
+  'Petit robot',
   'Autres',
 ] as const;
 
@@ -22,7 +27,7 @@ export const STORE_INFO = {
   phone: '+213552010434',
   phone_mobile: '0669 67 78 49',
   email: 'Akkoumoh10@gmail.com',
-  address: 'Akkoumoh, Algérie',
+  address: '12 Salopards, Tizi Ouzou',
   mapUrl: 'https://www.google.com/maps?q=36.7010273,4.039739&z=17&hl=en',
   hours: {
     weekdays: 'Samedi - Jeudi : 9h - 19h',

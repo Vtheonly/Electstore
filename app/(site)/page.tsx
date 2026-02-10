@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
-import { Refrigerator, WashingMachine, TvIcon } from 'lucide-react';
+import { Refrigerator, WashingMachine, TvIcon, Waves, Flame, Wind, CookingPot, Bot } from 'lucide-react';
 import { Product } from '@/types';
 import { getProducts } from '@/lib/supabase/queries-client';
 import { ProductCard } from '@/components/shared/ProductCard';
@@ -69,7 +69,7 @@ export default function HomePage() {
             <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4 text-brand-blue-dark">Nos Catégories</h2>
             <div className="h-1 w-20 bg-brand-blue mx-auto rounded-full"></div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             <Link href="/produits?category=Réfrigérateurs" className="group">
               <Card className="p-10 hover:shadow-premium-hover transition-all cursor-pointer border-none bg-white group-hover:-translate-y-2 duration-300">
                 <Refrigerator className="h-12 w-12 mx-auto mb-6 text-brand-blue group-hover:scale-110 transition-transform" />
@@ -98,6 +98,41 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-heading font-bold mb-2 text-brand-blue-dark">Climatisation</h3>
                 <p className="text-sm text-gray-500 font-medium">Confort thermique</p>
+              </Card>
+            </Link>
+            <Link href="/produits?category=Lave-vaisselle" className="group">
+              <Card className="p-10 hover:shadow-premium-hover transition-all cursor-pointer border-none bg-white group-hover:-translate-y-2 duration-300">
+                <Waves className="h-12 w-12 mx-auto mb-6 text-brand-blue group-hover:scale-110 transition-transform" />
+                <h3 className="text-xl font-heading font-bold mb-2 text-brand-blue-dark">Lave-vaisselle</h3>
+                <p className="text-sm text-gray-500 font-medium">Propreté impeccable</p>
+              </Card>
+            </Link>
+            <Link href="/produits?category=Four" className="group">
+              <Card className="p-10 hover:shadow-premium-hover transition-all cursor-pointer border-none bg-white group-hover:-translate-y-2 duration-300">
+                <Flame className="h-12 w-12 mx-auto mb-6 text-brand-blue group-hover:scale-110 transition-transform" />
+                <h3 className="text-xl font-heading font-bold mb-2 text-brand-blue-dark">Four</h3>
+                <p className="text-sm text-gray-500 font-medium">Cuisson parfaite</p>
+              </Card>
+            </Link>
+            <Link href="/produits?category=Hotte" className="group">
+              <Card className="p-10 hover:shadow-premium-hover transition-all cursor-pointer border-none bg-white group-hover:-translate-y-2 duration-300">
+                <Wind className="h-12 w-12 mx-auto mb-6 text-brand-blue group-hover:scale-110 transition-transform" />
+                <h3 className="text-xl font-heading font-bold mb-2 text-brand-blue-dark">Hotte</h3>
+                <p className="text-sm text-gray-500 font-medium">Air pur et frais</p>
+              </Card>
+            </Link>
+            <Link href="/produits?category=Plaque de cuisson" className="group">
+              <Card className="p-10 hover:shadow-premium-hover transition-all cursor-pointer border-none bg-white group-hover:-translate-y-2 duration-300">
+                <CookingPot className="h-12 w-12 mx-auto mb-6 text-brand-blue group-hover:scale-110 transition-transform" />
+                <h3 className="text-xl font-heading font-bold mb-2 text-brand-blue-dark">Plaque de cuisson</h3>
+                <p className="text-sm text-gray-500 font-medium">Performance et style</p>
+              </Card>
+            </Link>
+            <Link href="/produits?category=Petit robot" className="group">
+              <Card className="p-10 hover:shadow-premium-hover transition-all cursor-pointer border-none bg-white group-hover:-translate-y-2 duration-300">
+                <Bot className="h-12 w-12 mx-auto mb-6 text-brand-blue group-hover:scale-110 transition-transform" />
+                <h3 className="text-xl font-heading font-bold mb-2 text-brand-blue-dark">Petit robot</h3>
+                <p className="text-sm text-gray-500 font-medium">Aide en cuisine</p>
               </Card>
             </Link>
           </div>

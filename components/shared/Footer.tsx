@@ -15,7 +15,7 @@ export default function Footer() {
         <div>
           <h3 className="text-lg font-heading font-bold mb-6 uppercase tracking-wider">Contact</h3>
           <ul className="space-y-4 text-blue-100/70">
-            <li><a href="https://www.google.com/maps?q=36.7010273,4.039739&z=17&hl=en" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Akkoumoh, Algérie</a></li>
+            <li><a href="https://www.google.com/maps?q=36.7010273,4.039739&z=17&hl=en" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">12 Salopards, Tizi Ouzou</a></li>
             <li><a href="tel:+213552010434" className="hover:text-white transition-colors">+213 552 010 434</a></li>
             <li><a href="tel:+213669677849" className="hover:text-white transition-colors">0669 67 78 49</a></li>
             <li><a href="mailto:Akkoumoh10@gmail.com" className="hover:text-white transition-colors">Akkoumoh10@gmail.com</a></li>

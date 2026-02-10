@@ -65,7 +65,7 @@ export default function ContactPage() {
                 rel="noopener noreferrer"
                 className="text-gray-600 hover:text-brand-blue transition-colors underline"
               >
-                Akkoumoh, Algérie
+                12 Salopards, Tizi Ouzou
               </a>
             </div>
           </div>
