@@ -1,11 +1,10 @@
-// /middleware.ts
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // 1. Skip middleware for static files and images to save speed
+  // 1. Skip proxy for static files and images to save speed
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
@@ -54,7 +53,7 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/admin/login', request.url))
       }
     } catch (e) {
-      console.error("Middleware Auth Error:", e)
+      console.error("Proxy Auth Error:", e)
     }
   }
 
