@@ -1,3 +1,5 @@
+"use client";
+
 // /app/admin/products/page.tsx
 
 import { useEffect, useState } from 'react';
@@ -8,7 +10,7 @@ import { Card } from '@/components/ui/Card';
 import { Product } from '@/types';
 import { getProducts, deleteProduct } from '@/lib/supabase/queries-client';
 import { formatCurrency } from '@/lib/currency';
-import { Plus, Edit, Trash2, Package, AlertTriangle, CheckCircle, HelpCircle, Archive } from 'lucide-react';
+import { Plus, Edit, Trash2, Package, AlertTriangle, CheckCircle, Archive } from 'lucide-react';
 import { AdminNav } from '@/components/admin/AdminNav';
 
 export default function AdminProductsPage() {
