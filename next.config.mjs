@@ -1,21 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'sxnrhruczgbjextrlcwq.supabase.co',
-        port: '',
-        pathname: '/storage/v1/object/public/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
-      },
+    domains: [
+      'sxnrhruczgbjextrlcwq.supabase.co',
+      'images.unsplash.com'
     ],
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
