@@ -1,8 +1,10 @@
 'use client';
 
+// /components/admin/ImageUpload.tsx
+
 import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/Button';
-import { Plus, X, Image as ImageIcon, CheckCircle2, Loader2, UploadCloud } from 'lucide-react';
+import { Plus, X, Loader2, UploadCloud } from 'lucide-react';
 import { uploadProductImage } from '@/lib/supabase/queries-client';
 
 interface ImageItem {
@@ -34,17 +36,18 @@ export function ImageUpload({ images, onChange, maxImages = 5 }: ImageUploadProp
       return;
     }
 
-    const newItems: ImageItem[] = newFiles.map(file => ({
+    // FIX: Only mark the first overall image as main (index === 0 and images.length === 0)
+    const newItems: ImageItem[] = newFiles.map((file, index) => ({
       url: URL.createObjectURL(file), // Temporary preview URL
       file,
-      is_main: images.length === 0, // First image is main by default
+      is_main: images.length === 0 && index === 0, 
       status: 'pending'
     }));
 
     const updatedImages = [...images, ...newItems];
     onChange(updatedImages);
     
-    // Proactive upload
+    // Start upload
     await uploadNewImages(updatedImages);
   };
 
@@ -94,7 +97,9 @@ export function ImageUpload({ images, onChange, maxImages = 5 }: ImageUploadProp
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <label className="block text-sm font-medium">Images du produit ({images.length}/{maxImages})</label>
+        <label className="block text-xs font-black uppercase tracking-wider text-gray-400">
+          Images du produit ({images.length}/{maxImages})
+        </label>
         {images.length < maxImages && (
           <Button 
             type="button" 
@@ -102,8 +107,9 @@ export function ImageUpload({ images, onChange, maxImages = 5 }: ImageUploadProp
             size="sm"
             onClick={() => fileInputRef.current?.click()}
             disabled={uploading}
+            className="rounded-lg h-8"
           >
-            <Plus className="h-4 w-4 mr-2" />
+            <Plus className="h-4 w-4 mr-1.5" />
             Ajouter
           </Button>
         )}
@@ -121,19 +127,19 @@ export function ImageUpload({ images, onChange, maxImages = 5 }: ImageUploadProp
       {images.length === 0 ? (
         <div 
           onClick={() => fileInputRef.current?.click()}
-          className="border-2 border-dashed border-gray-200 rounded-xl p-12 text-center hover:border-brand-blue/30 hover:bg-brand-blue/5 transition-all cursor-pointer"
+          className="border-2 border-dashed border-gray-100 rounded-2xl p-8 text-center hover:border-brand-blue/30 hover:bg-brand-blue/5 transition-all cursor-pointer"
         >
-          <UploadCloud className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-600 font-medium">Glissez vos images ou cliquez pour uploader</p>
-          <p className="text-xs text-gray-400 mt-2">Format supporté: JPG, PNG, WEBP (Max 5Mo)</p>
+          <UploadCloud className="h-10 w-10 text-gray-300 mx-auto mb-3" />
+          <p className="text-sm text-gray-500 font-bold">Glissez ou sélectionnez vos images</p>
+          <p className="text-[10px] text-gray-400 mt-1">Format supporté: JPG, PNG, WEBP (Max 5Mo)</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-3 gap-3">
           {images.map((img, index) => (
             <div 
               key={index} 
-              className={`relative group aspect-square rounded-xl overflow-hidden border-2 transition-all ${
-                img.is_main ? 'border-brand-blue shadow-lg scale-105 z-10' : 'border-gray-100'
+              className={`relative group aspect-square rounded-xl overflow-hidden border transition-all ${
+                img.is_main ? 'border-brand-blue shadow-md scale-102 z-10' : 'border-gray-100'
               }`}
             >
               <img 
@@ -143,35 +149,32 @@ export function ImageUpload({ images, onChange, maxImages = 5 }: ImageUploadProp
               />
               
               {img.status === 'uploading' && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Loader2 className="h-8 w-8 text-brand-blue animate-spin" />
+                <div className="absolute inset-0 flex items-center justify-center bg-white/40">
+                  <Loader2 className="h-6 w-6 text-brand-blue animate-spin" />
                 </div>
               )}
 
               {img.status === 'error' && (
                 <div className="absolute inset-0 bg-red-500/10 flex items-center justify-center">
-                  <span className="text-[10px] bg-red-600 text-white px-2 py-1 rounded">Erreur</span>
+                  <span className="text-[10px] bg-red-600 text-white px-2 py-0.5 rounded-full font-bold">Erreur</span>
                 </div>
               )}
 
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                 {!img.is_main && img.status === 'existing' && (
-                  <Button 
+                  <button 
                     type="button" 
-                    variant="secondary" 
-                    size="icon" 
-                    className="h-8 w-8 rounded-full"
+                    className="h-8 px-3 rounded-lg bg-white text-brand-blue-dark text-xs font-bold hover:bg-brand-blue/10 transition-colors"
                     onClick={() => setMainImage(index)}
-                    title="Définir comme image principale"
                   >
-                    <CheckCircle2 className="h-4 w-4" />
-                  </Button>
+                    Principale
+                  </button>
                 )}
                 <Button 
                   type="button" 
                   variant="destructive" 
                   size="icon" 
-                  className="h-8 w-8 rounded-full"
+                  className="h-8 w-8 rounded-lg"
                   onClick={() => removeImage(index)}
                 >
                   <X className="h-4 w-4" />
@@ -179,7 +182,7 @@ export function ImageUpload({ images, onChange, maxImages = 5 }: ImageUploadProp
               </div>
 
               {img.is_main && (
-                <div className="absolute top-2 left-2 bg-brand-blue text-white text-[10px] px-2 py-0.5 rounded-full font-bold shadow-md">
+                <div className="absolute top-2 left-2 bg-brand-blue text-white text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-wider shadow-sm">
                   Principale
                 </div>
               )}
